@@ -1,0 +1,14 @@
+{
+    "require": {
+        "php": ">=7.1.13",
+        "cutephp/route": "~1.0",
+        "larapack/dd": "1.*",
+        "monolog/monolog": "^1.24"
+    },
+    "autoload": {
+        "files":["core/hlper.php","core/DB.php","core/route.php"],
+        "psr-4": {
+            "App\\": "app"
+        }
+    }
+}

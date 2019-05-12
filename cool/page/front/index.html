@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cool things</title>
+  <link rel="stylesheet" href="../../tool/masonry/css/main.css">
+  <link rel="stylesheet" href="../../tool/masonry/dist/sortable.min.css">
+  <link rel="stylesheet" type="text/css" href="../../tool/bottom/css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="../../tool/bottom/css/jq22.css" />
+  <script src="../../tool/bottom/js/modernizr-2.6.2.min.js"></script>
+  <script type="text/javascript" src="../../tool/masonry/dist/sortable.min.js"></script>
+</head>
+<body>
+  <div class="sortable">
+    <!--列表-->
+    <div class="container component">
+      <div class="wrapper">
+        <ul class="sortable__nav nav">
+          <li> <a data-sjslink="all" class="nav__link"> 全部 </a> </li>
+          <li> <a data-sjslink="flatty" class="nav__link"> 扁平的 </a> </li>
+          <li> <a data-sjslink="funny" class="nav__link"> 有趣的 </a> </li>
+        </ul>
+        <div id="sortable" class="sjs-default">
+          <div data-sjsel="flatty">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-1.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 1</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, eius, asperiores. Incidunt sapiente est quae iure... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="flatty">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-2.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 2</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum vitae necessitatibus, dolorem similique vero explicabo... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="funny">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-3.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 3</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, placeat voluptate, fuga tenetur eos ducimus animi porro... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="flatty">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-4.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 4</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit doloremque quisquam, obcaecati unde nam est quos... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="flatty">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-5.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 5</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse corporis hic minima nisi reprehenderit... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="funny">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-6.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 6</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel voluptatibus, id, deserunt inventore... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="flatty">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-7.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 7</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum enim beatae vero culpa, fuga, magni sunt dolores nam... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="flatty">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-8.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 8</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae numquam, blanditiis necessitatibus... </p>
+              </div>
+            </div>
+          </div>
+          <div data-sjsel="funny">
+            <div class="card"> <img class="card__picture" src="../../tool/masonry/images/item-9.png" alt="">
+              <div class="card-infos">
+                <h2 class="card__title">Example 9</h2>
+                <p class="card__text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur adipisci voluptatum laborum officiis... </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--底部导航-->
+    <button class="cn-button" id="cn-button">+</button>
+    <div class="cn-wrapper" id="cn-wrapper">
+      <ul>
+        <li><a href="#" ><span class="icon-picture"></span></a></li>
+        <li><a href="#" ><span class="icon-headphones"></span></a></li>
+        <li><a href="#" ><span class="icon-home"></span></a></li>
+        <li><a href="#" ><span class="icon-facetime-video"></span></a></li>
+        <li><a href="#" ><span class="icon-envelope-alt"></span></a></li>
+      </ul>
+    </div>
+    <div id="cn-overlay" class="cn-overlay"></div>
+  </div>
+  <script src="../../tool/bottom/js/polyfills.js"></script>
+  <script src="../../tool/bottom/js/lrtk.js"></script>
+  <script type="text/javascript"> 
+          document.querySelector('#sortable').sortablejs()
+  </script>
+</body>
+</html>
