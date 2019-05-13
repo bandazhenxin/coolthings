@@ -1,6 +1,4 @@
 <?php
-namespace heart;
-
 use CutePHP\Route\Router;
 
 class route{

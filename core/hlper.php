@@ -49,7 +49,7 @@ if(!function_exists('getRoute')){
      * @return null|route
      */
     function getRoute(){
-        $route = route::routeStart();
+        $route = \heart\route::routeStart();
         return $route;
     }
 }
