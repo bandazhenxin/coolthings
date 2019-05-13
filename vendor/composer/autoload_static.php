@@ -72,11 +72,16 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         ),
     );
 
+    public static $classMap = array (
+        'heart\\Session' => __DIR__ . '/../..',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf::$classMap;
 
         }, null, ClassLoader::class);
     }

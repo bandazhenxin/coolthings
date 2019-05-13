@@ -14,5 +14,10 @@ return [
         'type'   => 'get',
         'url'    => '/test',
         'action' => 'Api/test/index'
+    ],
+    [
+        'type'   => 'get',
+        'url'    => '/test1',
+        'action' => 'Api/test1/index'
     ]
 ];

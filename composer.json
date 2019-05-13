@@ -6,6 +6,7 @@
         "monolog/monolog": "^1.24"
     },
     "autoload": {
+        "classmap":["core/heart"],
         "files":["core/hlper.php","core/DB.php","core/route.php"],
         "psr-4": {
             "App\\": "app"

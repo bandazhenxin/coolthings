@@ -6,9 +6,12 @@ class route{
     private $config = [];
     private $type   = [];
 
-    private $router   = null;
+    private $router = null;
 
     private static $instance = null;
+
+    public static $classname = null;
+    public static $action    = null;
 
     final private function __construct(){
         $this->suffis = getUrlSuffis();
@@ -45,6 +48,7 @@ class route{
     }
 
     public function jump(){
+        $this->setGetData($this->suffis['query']);
         $type = strtolower(getRequestMethod());
         $action = $this->getAction($this->suffis['path'],$type);
         if(false !== $action){
@@ -71,12 +75,13 @@ class route{
             if (!$class->hasMethod($action)) throwError("Method $action does not existed!");
             $tmp   = $class->getMethod($action);
             if(!$tmp->ispublic()) throwError("Function is not public");
+            self::$classname = $class_name;
+            self::$action    = $action;
             $tmp->invoke($class->newInstance());
         }else{
             $this->statiJump($this->suffis['path']);
             throwError('Routing undefined!!');
         }
-        $this->setGetData($this->suffis['query']);
     }
 
     private function statiJump($name){

@@ -1,4 +1,6 @@
 <?php
+use heart\Session;
+
 if(!function_exists('config')){
     /**
      * 获取配置信息
@@ -12,6 +14,22 @@ if(!function_exists('config')){
         if(!file_exists($path)) return [];
         $config = require($path);
         return $config;
+    }
+}
+
+if(!function_exists('session')){
+    /**
+     * 获取配置session信息
+     * @param string $chanal
+     * @return array|mixed
+     */
+    function session($name,$data = null){
+        if(!is_string($name)) return false;
+        if(empty($data)){
+            return Session::get($name);
+        }else{
+            Session::set($name,$data);
+        }
     }
 }
 
@@ -54,6 +72,32 @@ if (! function_exists('getRequestType')) {
     function getRequestType(){
         if(!empty($_POST)) return 'POST';
         else return 'GET';
+    }
+}
+
+if(!function_exists('getHeader')){
+    /**
+     * 获取header头信息
+     * @return array
+     */
+    function getHeader(){
+        $ignore  = ['host','accept','content-length','content-type'];
+        $headers = [];
+
+        foreach($_SERVER as $key=>$value){
+            if(substr($key, 0, 5)==='HTTP_') {
+                $key = substr($key, 5);
+                $key = str_replace('_', ' ', $key);
+                $key = str_replace(' ', '-', $key);
+                $key = strtolower($key);
+
+                if (!in_array($key, $ignore)) {
+                    $headers[$key] = $value;
+                }
+            }
+        }
+
+        return $headers;
     }
 }
 
@@ -147,5 +191,19 @@ if (! function_exists('value')) {
     function value($value)
     {
         return $value instanceof Closure ? $value() : $value;
+    }
+}
+
+if(! function_exists('token')){
+    /**
+     * 生成请求令牌
+     * @access public
+     * @param string $name 令牌名称
+     * @return string
+     */
+    function token($name = 'token'){
+        $token = md5($_SERVER['REQUEST_TIME_FLOAT']);
+        Session::set($name,$token);
+        return $token;
     }
 }
