@@ -55,6 +55,19 @@ class Api{
     }
 
     /**
+     * 获取body值
+     * @param $name
+     * @param bool $value
+     * @return bool
+     */
+    public function request($name,$value = null){
+        if(!is_string($name)) return null;
+        $_REQ = array_merge($_GET, $_POST);
+        $res = isset($_REQ[$name])?$_REQ[$name]:$value;
+        return $res;
+    }
+
+    /**
      * 生成请求令牌
      * @access public
      * @param string $name 令牌名称
@@ -65,6 +78,15 @@ class Api{
         if (isAjax()) header($name . ': ' . $token);
         Session::set($name,$token);
         return $token;
+    }
+
+    /**
+     * 设置token并返回token
+     * @return string
+     */
+    public function setToken(){
+        $this->token = $this->token();
+        return $this->token;
     }
 
     /**

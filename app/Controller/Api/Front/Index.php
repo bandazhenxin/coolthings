@@ -9,7 +9,7 @@ use heart\Api;
  */
 class Index extends Api{
     //无需验证的接口
-    private $noNeedTesting = ['thinsList'];
+    private $noNeedTesting = ['thingsList'];
 
     public function __construct(){
         $this->intercept($this->noNeedTesting);
@@ -18,7 +18,7 @@ class Index extends Api{
     /**
      * 获取首页
      */
-    public function thinsList(){
-        $this->yes();
+    public function thingsList(){
+        $this->yes(getHeader());
     }
 }
