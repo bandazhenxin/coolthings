@@ -11,6 +11,7 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '0e423a14e27410a071e5d815d3ffc856' => __DIR__ . '/..' . '/larapack/dd/src/helper.php',
+        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         'da48834134990e7aa7032007ec845ec0' => __DIR__ . '/../..' . '/core/hlper.php',
         '63b4c7d8f2deffa1280e21308473a1cc' => __DIR__ . '/../..' . '/core/DB.php',
         '2876e127d2779420233f2b57d51e27ba' => __DIR__ . '/../..' . '/core/route.php',
@@ -21,6 +22,7 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         array (
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Iconv\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
         ),
         'P' => 
@@ -49,6 +51,10 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Iconv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
         ),
         'Symfony\\Component\\VarDumper\\' => 
         array (

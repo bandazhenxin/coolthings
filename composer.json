@@ -3,7 +3,9 @@
         "php": ">=7.1.13",
         "cutephp/route": "~1.0",
         "larapack/dd": "1.*",
-        "monolog/monolog": "^1.24"
+        "monolog/monolog": "^1.24",
+        "symfony/polyfill-iconv": "^1.11",
+        "symfony/polyfill-mbstring": "^1.11"
     },
     "autoload": {
         "classmap":["core/heart"],

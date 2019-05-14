@@ -2,13 +2,12 @@
 namespace heart;
 
 class Api{
-    public function init(){
+    public function init(){}
 
-    }
-
-    public function intercept(array $noLogin){
-        $action = getRoute()::$action;
+    public function intercept(array $noNeedLogin){
         $this->init();
+        $action = getRoute()::$action;
+
     }
 
     /**
