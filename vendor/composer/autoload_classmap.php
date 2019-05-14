@@ -8,5 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'heart\\Api' => $baseDir . '/core/heart/Api.php',
     'heart\\Session' => $baseDir . '/core/heart/Session.php',
-    'route' => $baseDir . '/core/heart/route.php',
+    'heart\\route' => $baseDir . '/core/heart/route.php',
 );

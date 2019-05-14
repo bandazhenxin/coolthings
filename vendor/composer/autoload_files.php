@@ -13,5 +13,4 @@ return array(
     'def43f6c87e4f8dfd0c9e1b1bab14fe8' => $vendorDir . '/symfony/polyfill-iconv/bootstrap.php',
     'da48834134990e7aa7032007ec845ec0' => $baseDir . '/core/hlper.php',
     '63b4c7d8f2deffa1280e21308473a1cc' => $baseDir . '/core/DB.php',
-    '2876e127d2779420233f2b57d51e27ba' => $baseDir . '/core/route.php',
 );

@@ -14,7 +14,6 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         'da48834134990e7aa7032007ec845ec0' => __DIR__ . '/../..' . '/core/hlper.php',
         '63b4c7d8f2deffa1280e21308473a1cc' => __DIR__ . '/../..' . '/core/DB.php',
-        '2876e127d2779420233f2b57d51e27ba' => __DIR__ . '/../..' . '/core/route.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -81,7 +80,7 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
     public static $classMap = array (
         'heart\\Api' => __DIR__ . '/../..' . '/core/heart/Api.php',
         'heart\\Session' => __DIR__ . '/../..' . '/core/heart/Session.php',
-        'route' => __DIR__ . '/../..' . '/core/heart/route.php',
+        'heart\\route' => __DIR__ . '/../..' . '/core/heart/route.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -2,12 +2,56 @@
 namespace heart;
 
 class Api{
-    public function init(){}
+    public $data_type = 'json';
+    public $action    = '';
+    public $classname = '';
+    public $token     = '';
 
-    public function intercept(array $noNeedLogin){
-        $this->init();
-        $action = getRoute()::$action;
+    /**
+     * 初始化
+     * @param string $data_type
+     */
+    public function init($data_type = 'json'){
+        $action    = '$action';
+        $classname = '$classname';
+        $this->action    = getRoute()::$action;
+        $this->classname = getRoute()::$classname;
+        $this->data_type = $data_type != 'json'?'jsonp':$data_type;
+        $this->token     = session('token');
+    }
 
+    /**
+     * token检测
+     * @param array $noNeedTesting
+     * @param string $data_type
+     */
+    public function intercept(array $noNeedTesting,$data_type = 'json'){
+        $this->init($data_type);
+
+        //拦截检测
+        if(!in_array($this->action,$noNeedTesting)){
+            $token = $this->getRequestToken();
+            if(empty($this->token)) $this->no('token异常,请检查登录');
+            if($this->token != $token) $this->no('Signature failed');
+        }
+    }
+
+    /**
+     * 获取请求token
+     * @return bool
+     */
+    public function getRequestToken(){
+        //body取值
+        $token = isset($_GET['token'])?$_GET['token']:'';
+        getRequestType() == 'POST' && isset($_POST['token']) && $token = $_POST['token'];
+
+        //header取值
+        if(empty($token)){
+            $header = getHeader();
+            $token  = isset($header['token'])?$header['token']:$token;
+        }
+
+        return $token;
     }
 
     /**
@@ -21,5 +65,53 @@ class Api{
         if (isAjax()) header($name . ': ' . $token);
         Session::set($name,$token);
         return $token;
+    }
+
+    /**
+     * 输出成功
+     * @param string $msg
+     * @param array $data
+     * @param array $header
+     */
+    public function yes($msg = 'yes',$data = []){
+        $result = [
+            'code' => 1,
+            'msg' => $msg,
+            'data' => $data
+        ];
+
+        $this->inputInfo($result);
+    }
+
+    /**
+     * 输出失败
+     * @param string $msg
+     * @param array $data
+     * @param array $header
+     */
+    public function no($msg = 'no',$data = []){
+        $result = [
+            'code' => 0,
+            'msg' => $msg,
+            'data' => $data
+        ];
+
+        $this->inputInfo($result);
+    }
+
+    private function inputInfo($result = []){
+        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        switch ($this->data_type){
+            case 'json':
+                break;
+            case 'jsonp':
+                if(isset($_GET['callback'])){
+                    $data = $_GET['callback'].'('.$data.')';
+                }else{
+                    throwError("请传递callback参数",2);
+                }
+                break;
+        }
+        exit($data);
     }
 }
