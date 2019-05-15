@@ -84,8 +84,8 @@ class Api{
      * 设置token并返回token
      * @return string
      */
-    public function setToken(){
-        $this->token = $this->token();
+    public function setToken($token = ''){
+        $this->token = (empty($token) || !is_string($token))?$this->token():$token;
         return $this->token;
     }
 

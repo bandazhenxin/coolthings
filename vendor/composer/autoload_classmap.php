@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'heart\\Api' => $baseDir . '/core/heart/Api.php',
+    'heart\\Model' => $baseDir . '/core/heart/Model.php',
     'heart\\Session' => $baseDir . '/core/heart/Session.php',
     'heart\\route' => $baseDir . '/core/heart/route.php',
 );

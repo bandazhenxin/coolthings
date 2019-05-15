@@ -101,6 +101,17 @@ if(!function_exists('getHeader')){
     }
 }
 
+if(!function_exists('json')){
+    /**
+     * json编码
+     * @param $pre
+     * @return string
+     */
+    function json($pre){
+        return json_encode( $pre,JSON_UNESCAPED_UNICODE );
+    }
+}
+
 if(!function_exists('throwError')){
     function throwError($info='',$type=1){
         $info = (string)$info;
