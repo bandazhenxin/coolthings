@@ -36,7 +36,14 @@ class AuthService{
             ];
             $user = $this->model->select('id,account,username,addtime,code')->where($condition)->limit(1)->get()->toArray();
             if(!empty($user)){
+                $token = token();
+                $user  = $user[0];
+                $user['token'] = $token;
+                session('user',$user);
 
+                $res['code'] = true;
+                $res['msg']  = '登录成功';
+                $res['data'] = $user;
             }
         }catch (\Exception $e){
             return $res;
