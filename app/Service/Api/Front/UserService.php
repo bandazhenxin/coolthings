@@ -2,6 +2,7 @@
 namespace App\Service\Api\Front;
 
 use App\Model\User;
+use App\Model\Code;
 
 class UserService{
     private $model = null;
@@ -28,7 +29,8 @@ class UserService{
         try{
             $condition = [
                 ['account',$account],
-                ['password',md5($password)]
+                ['password',md5($password)],
+                ['status',1]
             ];
             $user = $this->model->select('id,account,username,addtime,code')->where($condition)->limit(1)->get()->toArray();
             if(!empty($user)){
@@ -43,5 +45,37 @@ class UserService{
         }
 
         return $res;
+    }
+
+    public function register($account = '',$password = '',$code = ''){
+        //init
+        $res = getInit('注册失败');
+        $code = new Code();
+
+        //validata
+        if(empty($account) || !is_string($account)){
+            $res['msg'] = '请传入有效账户';
+            return $res;
+        }
+        if(empty($password) || !is_string($password)){
+            $res['msg'] = '请传入有效密码';
+            return $res;
+        }
+        if(empty($code) || !is_string($code)){
+            $res['msg'] = '请传入有效激活码';
+            return $res;
+        }
+
+        try{
+            $is_code = $code->where([['status',1],['code',$code]])->limit(1)->get();
+            if(empty($is_code)){
+                $res['msg'] = '激活码不存在';
+                return $res;
+            }
+
+//            $add = $this->model->  继续
+        }catch (\Exception $e){
+            return $res;
+        }
     }
 }

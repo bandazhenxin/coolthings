@@ -1,14 +1,14 @@
 <?php
 namespace App\Controller\Api\Front;
 
-use heart\Api;
+use App\Lib\Common\Auth;
 use App\Service\Api\Front\UserService;
 
 /**
  * Class Index
  * @package App\Controller\Api\Front
  */
-class User extends Api{
+class User extends Auth{
     private $server = null;
 
     public function __construct(){
@@ -50,9 +50,27 @@ class User extends Api{
         if(empty($password) || !is_string($password)) return $res;
 
         //login
+        $user_res = $this->server->login($account,$password);
         if(empty($user_res['code'])) return $res;
         $this->setToken($user_res['data']['token']);//可以不用设置的
         $res = getSuccsess('登录成功',$user_res['data']);
         return $res;
+    }
+
+    public function register(){
+        //getdata
+        $account  = $this->request('account');
+        $password = $this->request('password');
+        $code     = $this->request('code');
+
+        //validate
+        if(empty($account)) $this->no('请填写账户信息');
+        if(empty($password)) $this->no('请填写密码信息');
+        if(empty($code)) $this->no('请填写激活码');
+
+        //register
+        $user_res = $this->server->register($account,$password,$code);
+        if(empty($user_res['code'])) $this->no($user_res['msg']);
+        $this->yes($user_res['msg'],$user_res['data']);
     }
 }

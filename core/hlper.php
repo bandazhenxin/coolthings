@@ -236,7 +236,7 @@ if(! function_exists('token')){
      */
     function token($name = 'token'){
         $token = md5($_SERVER['REQUEST_TIME_FLOAT']);
-        Session::set($name,$token);
+        session($name,$token);
         return $token;
     }
 }
