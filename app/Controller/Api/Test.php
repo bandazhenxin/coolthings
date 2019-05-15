@@ -1,18 +1,23 @@
 <?php
 namespace App\Controller\Api;
 
-use heart\Api;
+use App\Lib\Common\Auth;
 
-class Test extends Api{
+class Test extends Auth{
     //无需验证的接口
     private $noNeedTesting = [];
+    private $noNeedLogin   = [];
+
+    //验证登录时自动执行 一定要是protected function autoUpdate() 一般用于更新用session数据等等
+    protected function autoUpdate(){
+
+    }
 
     public function __construct(){
-        session('token','cddddxssxs');
-        $this->intercept($this->noNeedTesting);
+        $this->intercept($this->noNeedTesting,$this->noNeedLogin);
     }
 
     public function index(){
-        $this->yes(getRoute()::$action);
+        $this->yes('yes',getRoute()::$action);
     }
 }

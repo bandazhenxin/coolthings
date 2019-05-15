@@ -23,12 +23,12 @@ if(!function_exists('session')){
      * @param string $chanal
      * @return array|mixed
      */
-    function session($name,$data = null){
+    function session($name,$data = '',$time = 86400){
         if(!is_string($name)) return false;
-        if(empty($data)){
+        if($data === ''){
             return Session::get($name);
         }else{
-            Session::set($name,$data);
+            Session::set($name,$data,$time);
         }
     }
 }
@@ -109,6 +109,28 @@ if(!function_exists('json')){
      */
     function json($pre){
         return json_encode( $pre,JSON_UNESCAPED_UNICODE );
+    }
+}
+
+if(!function_exists('getInit')){
+    function getInit($error,$data = []){
+        $error = is_string($error)?$error:'操作失败';
+        return [
+            'code' => false,
+            'msg'  => $error,
+            'data' => $data
+        ];
+    }
+}
+
+if(!function_exists('getSuccsess')){
+    function getSuccsess($msg,$data = []){
+        $error = is_string($msg)?$msg:'操作成功';
+        return [
+            'code' => true,
+            'msg'  => $msg,
+            'data' => $data
+        ];
     }
 }
 

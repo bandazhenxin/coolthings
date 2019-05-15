@@ -23,13 +23,13 @@ return [
     [
         'type'   => 'post',
         'url'    => '/put/login',
-        'action' => 'api/front/auth/login'
+        'action' => 'api/front/user/login'
     ],
     //用户注册
     [
         'type'   => 'post',
         'url'    => '/post/register',
-        'action' => 'api/front/auth/register'
+        'action' => 'api/front/user/register'
     ],
 
     //获取酷事列表

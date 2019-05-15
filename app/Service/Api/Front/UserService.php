@@ -3,7 +3,7 @@ namespace App\Service\Api\Front;
 
 use App\Model\User;
 
-class AuthService{
+class UserService{
     private $model = null;
 
     public function __construct(){
@@ -12,11 +12,7 @@ class AuthService{
 
     public function login($account = '',$password = ''){
         //init
-        $res = [
-            'code' => false,
-            'msg'  => '操作失败',
-            'data' => []
-        ];
+        $res = getInit('登录失败');
 
         //validata
         if(empty($account) || !is_string($account)){
@@ -40,10 +36,7 @@ class AuthService{
                 $user  = $user[0];
                 $user['token'] = $token;
                 session('user',$user);
-
-                $res['code'] = true;
-                $res['msg']  = '登录成功';
-                $res['data'] = $user;
+                $res = getSuccsess('登录成功',$user);
             }
         }catch (\Exception $e){
             return $res;

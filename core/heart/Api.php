@@ -25,14 +25,24 @@ class Api{
      * @param array $noNeedTesting
      * @param string $data_type
      */
-    public function intercept(array $noNeedTesting,$data_type = 'json'){
+    public function intercept(array $noNeedTesting = [],array $noNeedLogin = [],$data_type = 'json'){
         $this->init($data_type);
 
         //拦截检测
         if(!in_array($this->action,$noNeedTesting)){
+            //token validata
             $token = $this->getRequestToken();
             if(empty($this->token)) $this->no('token异常,请检查登录');
             if($this->token != $token) $this->no('Signature failed');
+
+            //login validata
+            if(!in_array($this->action,$noNeedLogin) && method_exists($this,'interceptLogin')){
+                $is_login = $this->interceptLogin();
+                if(!$is_login) $this->no('Not logged in');
+
+                //updata
+                if(method_exists($this,'autoUpdate')) $this->autoUpdate();
+            }
         }
     }
 
@@ -122,7 +132,7 @@ class Api{
     }
 
     private function inputInfo($result = []){
-        $data = json_encode($result,JSON_UNESCAPED_UNICODE);
+        $data = json($result);
         switch ($this->data_type){
             case 'json':
                 break;
