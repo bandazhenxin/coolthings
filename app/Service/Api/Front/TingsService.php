@@ -2,7 +2,6 @@
 namespace App\Service\Api\Front;
 
 use App\Model\Things;
-use App\Service\Api\Front\UserService;
 
 class TingsService{
     private $model = null;
@@ -21,6 +20,12 @@ class TingsService{
         return $res;
     }
 
+    /**
+     * 酷事列表
+     * @param $page
+     * @param int $length
+     * @return array
+     */
     public function thingsList($page,$length = 10){
         //init
         $res = getInit('登录失败');
@@ -42,7 +47,7 @@ class TingsService{
         //query
         try{
             $start = ($page - 1) * $length;
-            $list  = $this->model->where([['status',1]])->limit($start,$length)->get()->toArray();
+            $list  = $this->model->where([['status',1]])->limit($length,$start)->get()->toArray();
 
             $res = getSuccsess('获取成功',$list);
         }catch (\Exception $e){
@@ -50,5 +55,9 @@ class TingsService{
         }
 
         return $res;
+    }
+
+    public function thingsDetail(){
+
     }
 }
