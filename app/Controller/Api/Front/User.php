@@ -36,27 +36,8 @@ class User extends Auth{
     }
 
     /**
-     * 自助登录
-     * @param $account
-     * @param $password
-     * @return string
+     * 用户注册  这里设置的是不判断是否登录都可以注册
      */
-    public function privateLogin($account,$password){
-        //init
-        $res = getInit('登录失败');
-
-        //validate
-        if(empty($account) || !is_string($account)) return $res;
-        if(empty($password) || !is_string($password)) return $res;
-
-        //login
-        $user_res = $this->server->login($account,$password);
-        if(empty($user_res['code'])) return $res;
-        $this->setToken($user_res['data']['token']);//可以不用设置的
-        $res = getSuccsess('登录成功',$user_res['data']);
-        return $res;
-    }
-
     public function register(){
         //getdata
         $account  = $this->request('account');
@@ -72,5 +53,27 @@ class User extends Auth{
         $user_res = $this->server->register($account,$password,$code);
         if(empty($user_res['code'])) $this->no($user_res['msg']);
         $this->yes($user_res['msg'],$user_res['data']);
+    }
+
+    /**
+     * 自助登录
+     * @param $account
+     * @param $password
+     * @return string
+     */
+    public function privateLogin($account,$password){
+        //init
+        $res = getInit('登录失败');
+
+        //validate
+        if(empty($account) || !is_string($account.'')) return $res;
+        if(empty($password) || !is_string($password.'')) return $res;
+
+        //login
+        $user_res = $this->server->login($account,$password);
+        if(empty($user_res['code'])) return $res;
+        $this->setToken($user_res['data']['token']);//可以不用设置的
+        $res = getSuccsess('登录成功',$user_res['data']);
+        return $res;
     }
 }

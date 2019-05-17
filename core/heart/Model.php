@@ -10,7 +10,7 @@ class Model{
     }
 
     /**
-     * 代理DB方法
+     * 代理DB服务
      */
 
     public function table(){
@@ -34,8 +34,34 @@ class Model{
     }
 
     public function delete($id=null){
-        $res = db()->delete($id);
+        $res = db()->delete($this->table,$id);
         return $res;
+    }
+
+    /**
+     * 定制服务
+     */
+
+    /**
+     * 开启事务
+     */
+    public static function startTrans(){
+        db()->query('set names utf8');
+        db()->query('SET AUTOCOMMIT=0');
+    }
+
+    /**
+     * 提交事务
+     */
+    public static function commit(){
+        db()->query('COMMIT');
+    }
+
+    /**
+     * 数据回滚
+     */
+    public static function rollback(){
+        db()->query('ROLLBACK');
     }
 
     /**
@@ -43,6 +69,13 @@ class Model{
      * @param $name
      * @param $arguments
      * @return mixed
+     */
+
+    /**
+     * 同名同调
+     * @param $name
+     * @param $arguments
+     * @return bool
      */
     public function __call($name,$arguments){
         db()->table($this->table);

@@ -19,20 +19,20 @@ return [
     /**
      * 接口
      */
-    //用户登录
+    //用户登录 complete
     [
         'type'   => 'post',
         'url'    => '/put/login',
         'action' => 'api/front/user/login'
     ],
-    //用户注册
+    //用户注册 complete
     [
         'type'   => 'post',
         'url'    => '/post/register',
         'action' => 'api/front/user/register'
     ],
 
-    //获取酷事列表
+    //获取酷事列表 complete
     [
         'type'   => 'post',
         'url'    => '/get/thingsList',

@@ -1,6 +1,10 @@
 <?php
 use heart\Session;
 
+/*****************
+ * 设置全局值
+ *******************/
+
 if(!function_exists('config')){
     /**
      * 获取配置信息
@@ -33,6 +37,11 @@ if(!function_exists('session')){
     }
 }
 
+
+/*******************
+ * 获取实例
+ *************************/
+
 if (! function_exists('db')) {
     /**
      * 获取数据库实例
@@ -53,6 +62,11 @@ if(!function_exists('getRoute')){
         return $route;
     }
 }
+
+
+/********************
+ * 获取全局值
+ ************************/
 
 if (! function_exists('getRequestMethod')) {
     /**
@@ -98,54 +112,6 @@ if(!function_exists('getHeader')){
         }
 
         return $headers;
-    }
-}
-
-if(!function_exists('json')){
-    /**
-     * json编码
-     * @param $pre
-     * @return string
-     */
-    function json($pre){
-        return json_encode( $pre,JSON_UNESCAPED_UNICODE );
-    }
-}
-
-if(!function_exists('getInit')){
-    function getInit($error,$data = []){
-        $error = is_string($error)?$error:'操作失败';
-        return [
-            'code' => false,
-            'msg'  => $error,
-            'data' => $data
-        ];
-    }
-}
-
-if(!function_exists('getSuccsess')){
-    function getSuccsess($msg,$data = []){
-        $error = is_string($msg)?$msg:'操作成功';
-        return [
-            'code' => true,
-            'msg'  => $msg,
-            'data' => $data
-        ];
-    }
-}
-
-if(!function_exists('throwError')){
-    function throwError($info='',$type=1){
-        $info = (string)$info;
-        $type = (int)$type;
-        switch ($type){
-            case 1:
-                $info_arr = ['code'=>0,'message'=>$info,'data'=>[]];
-                exit(json_encode($info_arr,JSON_UNESCAPED_UNICODE));
-                break;
-            default:
-                throw new Exception($info);
-        }
     }
 }
 
@@ -211,6 +177,91 @@ if (! function_exists('env')) {
         }
 
         return $value;
+    }
+}
+
+
+/******************
+ * db类简化操作
+ ******************/
+if(!function_exists('startTrans')){
+    /**
+     * 开启事务
+     */
+    function startTrans(){
+        db()->query('set names utf8');
+        db()->query('SET AUTOCOMMIT=0');
+    }
+}
+
+if(!function_exists('commit')){
+    /**
+     * 提交事务
+     */
+    function commit(){
+        db()->query('COMMIT');
+    }
+}
+
+if(!function_exists('rollback')){
+    /**
+     * 开启事务
+     */
+    function rollback(){
+        db()->query('ROLLBACK');
+    }
+}
+
+
+/******************
+ * 工具操作
+ *********************/
+
+if(!function_exists('json')){
+    /**
+     * json编码
+     * @param $pre
+     * @return string
+     */
+    function json($pre){
+        return json_encode( $pre,JSON_UNESCAPED_UNICODE );
+    }
+}
+
+if(!function_exists('getInit')){
+    function getInit($error,$data = []){
+        $error = is_string($error)?$error:'操作失败';
+        return [
+            'code' => false,
+            'msg'  => $error,
+            'data' => $data
+        ];
+    }
+}
+
+if(!function_exists('getSuccsess')){
+    function getSuccsess($msg,$data = []){
+        $error = is_string($msg)?$msg:'操作成功';
+        return [
+            'code' => true,
+            'msg'  => $msg,
+            'data' => $data
+        ];
+    }
+}
+
+if(!function_exists('throwError')){
+    function throwError($info='',$type=1){
+        $info = (string)$info;
+        $type = (int)$type;
+        switch ($type){
+            case 1:
+                $info_arr = ['code'=>0,'message'=>$info,'data'=>[]];
+                exit(json_encode($info_arr,JSON_UNESCAPED_UNICODE));
+                break;
+            default:
+                throw new Exception($info);
+        }
     }
 }
 
