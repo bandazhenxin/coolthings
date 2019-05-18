@@ -5,7 +5,8 @@
         "larapack/dd": "1.*",
         "monolog/monolog": "^1.24",
         "symfony/polyfill-iconv": "^1.11",
-        "symfony/polyfill-mbstring": "^1.11"
+        "symfony/polyfill-mbstring": "^1.11",
+        "inhere/php-validate": "^2.6"
     },
     "autoload": {
         "classmap":["core/heart"],

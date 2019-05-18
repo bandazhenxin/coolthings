@@ -78,6 +78,34 @@ class Api{
     }
 
     /**
+     * 执行服务方法
+     * @param $obj
+     * @param $action
+     * @return mixed
+     */
+    public function serviceAction($obj,$action,array $params = []){
+        if('object' != gettype($obj)) $this->no('service操作:参数类型错误');
+        if(!is_string($action.'')) $this->no('service操作:参数类型错误');
+        if(!method_exists($obj,$action)) $this->no('service操作:方法不存在');
+
+        $res = $obj->$action(...$params);
+        $this->isRestful($res);
+        if(empty($res['code'])) $this->no($res['msg']);
+        $this->yes($res['msg'],$res['data']);
+    }
+
+    /**
+     * resful风格检测
+     * @param array $res
+     */
+    public function isRestful($res){
+        if(!is_array($res)) $this->no('resful风格错误');
+        if(!isset($res['code']) || !is_bool($res['code'])) $this->no('resful风格错误参数:code');
+        if(!isset($res['msg']) || !is_string($res['msg'])) $this->no('resful风格错误参数:msg');
+        if(!isset($res['data']) || !is_array($res['data'])) $this->no('resful风格错误参数:data');
+    }
+
+    /**
      * 生成请求令牌
      * @access public
      * @param string $name 令牌名称

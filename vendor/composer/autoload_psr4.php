@@ -12,6 +12,7 @@ return array(
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Inhere\\Validate\\' => array($vendorDir . '/inhere/php-validate/src'),
     'CutePHP\\Route\\' => array($vendorDir . '/cutephp/route/src'),
     'App\\' => array($baseDir . '/app'),
 );

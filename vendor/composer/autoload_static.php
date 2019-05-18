@@ -32,6 +32,10 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         array (
             'Monolog\\' => 8,
         ),
+        'I' => 
+        array (
+            'Inhere\\Validate\\' => 16,
+        ),
         'C' => 
         array (
             'CutePHP\\Route\\' => 14,
@@ -66,6 +70,10 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Inhere\\Validate\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/inhere/php-validate/src',
         ),
         'CutePHP\\Route\\' => 
         array (

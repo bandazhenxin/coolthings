@@ -35,6 +35,53 @@
         "description": "a simple route"
     },
     {
+        "name": "inhere/php-validate",
+        "version": "v2.6.4",
+        "version_normalized": "2.6.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/inhere/php-validate.git",
+            "reference": "e900fac6ce181220aba5982e59b6917108e60b84"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/inhere/php-validate/zipball/e900fac6ce181220aba5982e59b6917108e60b84",
+            "reference": "e900fac6ce181220aba5982e59b6917108e60b84",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">7.0.0"
+        },
+        "time": "2019-04-09T11:08:53+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Inhere\\Validate\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "inhere",
+                "email": "in.798@qq.com",
+                "homepage": "http://www.yzone.net/"
+            }
+        ],
+        "description": "an simple validate, filter library of the php",
+        "homepage": "https://github.com/inhere/php-validate",
+        "keywords": [
+            "form-validate",
+            "library",
+            "php-library",
+            "validate",
+            "validation"
+        ]
+    },
+    {
         "name": "larapack/dd",
         "version": "1.1",
         "version_normalized": "1.1.0.0",

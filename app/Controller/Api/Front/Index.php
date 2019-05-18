@@ -40,9 +40,8 @@ class Index extends Auth{
         if(!is_numeric($length)) $this->no('分页长度应为数字');
 
         //query
-        $things_res = $this->server->thingsList($page,$length);
-        if(empty($things_res['code'])) $this->no($things_res['msg']);
-        $this->yes($things_res['msg'],$things_res['data']);
+        $param = [$page,$length];
+        $this->serviceAction($this->server,__FUNCTION__,$param);
     }
 
     /**
@@ -53,10 +52,10 @@ class Index extends Auth{
         $things_id = $this->request('things_id');
         if(empty($things_id)) $this->no('酷事id不能为空');
         if(!is_numeric($things_id)) $this->no('酷事id应为数字');
+        $this->serviceAction($this->server,__FUNCTION__);
 
         //query
-        $things_res = $this->server->thingsDetail($things_id);
-        if(empty($things_res['code'])) $this->no($things_res['msg']);
-        $this->yes($things_res['msg'],$things_res['data']);
+        $param = [$things_id];
+        $this->serviceAction($this->server,__FUNCTION__,$param);
     }
 }

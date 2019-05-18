@@ -28,7 +28,7 @@ class TingsService{
      */
     public function thingsList($page,$length = 10){
         //init
-        $res = getInit('登录失败');
+        $res = getInit('获取失败');
 
         //validata
         if(empty($page)){
@@ -58,6 +58,7 @@ class TingsService{
     }
 
     public function thingsDetail(){
-
+        //init
+        $res = getInit('获取失败');
     }
 }
