@@ -2,7 +2,6 @@
 namespace App\Controller\Api\Front;
 
 use App\Lib\Common\Auth;
-use App\Service\Api\Front\UserService;
 
 /**
  * Class Index
@@ -13,7 +12,7 @@ class User extends Auth{
 
     public function __construct(){
         $this->init();
-        $this->server == null && $this->server = new UserService();
+        $this->server == null && $this->server = $this->service['UserService'];
     }
 
     /**
@@ -21,7 +20,7 @@ class User extends Auth{
      */
     public function login(){
         //getdata
-        $account  = $this->request('account');
+         $account  = $this->request('account');
         $password = $this->request('password');
 
         //validate
@@ -29,10 +28,7 @@ class User extends Auth{
         if(empty($password)) $this->no('请填写密码信息');
 
         //login
-        $user_res = $this->server->login($account,$password);
-        if(empty($user_res['code'])) $this->no($user_res['msg']);
-        $this->setToken($user_res['data']['token']);//可以不用设置的
-        $this->yes($user_res['msg'],$user_res['data']);
+        $this->yes('获取成功',$this->server->login($account,$password)->data);
     }
 
     /**
@@ -50,9 +46,7 @@ class User extends Auth{
         if(empty($code)) $this->no('请填写激活码');
 
         //register
-        $user_res = $this->server->register($account,$password,$code);
-        if(empty($user_res['code'])) $this->no($user_res['msg']);
-        $this->yes($user_res['msg'],$user_res['data']);
+        $this->yes('获取成功',$this->server->register($account,$password,$code)->data);
     }
 
     /**
@@ -72,7 +66,6 @@ class User extends Auth{
         //login
         $user_res = $this->server->login($account,$password);
         if(empty($user_res['code'])) return $res;
-        $this->setToken($user_res['data']['token']);//可以不用设置的
         $res = getSuccsess('登录成功',$user_res['data']);
         return $res;
     }

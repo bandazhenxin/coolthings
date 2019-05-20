@@ -58,7 +58,7 @@ if(!function_exists('getRoute')){
      * @return null|route
      */
     function getRoute(){
-        $route = \heart\route::routeStart();
+        $route = \heart\Route::routeStart();
         return $route;
     }
 }
@@ -189,8 +189,10 @@ if(!function_exists('startTrans')){
      * 开启事务
      */
     function startTrans(){
-        db()->query('set names utf8');
-        db()->query('SET AUTOCOMMIT=0');
+        if(!config('basic')['debug']){
+            db()->query('set names utf8');
+            db()->query('SET AUTOCOMMIT=0');
+        }
     }
 }
 
@@ -199,7 +201,7 @@ if(!function_exists('commit')){
      * 提交事务
      */
     function commit(){
-        db()->query('COMMIT');
+        if(!config('basic')['debug']) db()->query('COMMIT');
     }
 }
 
@@ -208,7 +210,7 @@ if(!function_exists('rollback')){
      * 开启事务
      */
     function rollback(){
-        db()->query('ROLLBACK');
+        if(!config('basic')['debug']) db()->query('ROLLBACK');
     }
 }
 
@@ -256,7 +258,7 @@ if(!function_exists('throwError')){
         $type = (int)$type;
         switch ($type){
             case 1:
-                $info_arr = ['code'=>0,'message'=>$info,'data'=>[]];
+                $info_arr = ['code'=>0,'msg'=>$info,'data'=>[]];
                 exit(json_encode($info_arr,JSON_UNESCAPED_UNICODE));
                 break;
             default:

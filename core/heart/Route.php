@@ -3,7 +3,7 @@ namespace heart;
 
 use CutePHP\Route\Router;
 
-class route{
+class Route{
     private $suffis = [];
     private $config = [];
     private $type   = [];

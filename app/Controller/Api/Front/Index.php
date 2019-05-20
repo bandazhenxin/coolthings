@@ -2,7 +2,6 @@
 namespace App\Controller\Api\Front;
 
 use App\Lib\Common\Auth;
-use App\Service\Api\Front\TingsService;
 
 /**
  * Class Index
@@ -10,20 +9,18 @@ use App\Service\Api\Front\TingsService;
  */
 class Index extends Auth{
     //无需验证的接口
-    private $noNeedTesting = ['thingsList','thingsDetail'];
+    private $noNeedTesting = ['thingsList'];
     private $noNeedLogin   = [];//一般填上面的数组就行
+    private $server        = null;
 
-    private $server = null;
-
-    //验证登录时自动执行  更新用户数据
+    //验证登录时自动执行  更新用户数据 这个方法不能使用本类里面的api初始化之后（也就是$this->intercept()之后）定义的成员
     protected function autoUpdate(){
-        $this->server == null && $this->server = new TingsService();
-        $this->server->update();
+        $this->service['UserService']->update();
     }
 
     public function __construct(){
-        $this->server == null && $this->server = new TingsService();
         $this->intercept($this->noNeedTesting,$this->noNeedLogin);
+        $this->server == null && $this->server = $this->service['TingsService'];
     }
 
     /**
@@ -40,8 +37,7 @@ class Index extends Auth{
         if(!is_numeric($length)) $this->no('分页长度应为数字');
 
         //query
-        $param = [$page,$length];
-        $this->serviceAction($this->server,__FUNCTION__,$param);
+        $this->yes('获取成功',$this->server->thingsList($page,$length)->data);
     }
 
     /**
@@ -52,10 +48,8 @@ class Index extends Auth{
         $things_id = $this->request('things_id');
         if(empty($things_id)) $this->no('酷事id不能为空');
         if(!is_numeric($things_id)) $this->no('酷事id应为数字');
-        $this->serviceAction($this->server,__FUNCTION__);
 
         //query
-        $param = [$things_id];
-        $this->serviceAction($this->server,__FUNCTION__,$param);
+        $this->yes('获取成功',$this->server->thingsDetail($things_id)->data);
     }
 }

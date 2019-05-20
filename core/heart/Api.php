@@ -6,6 +6,7 @@ class Api{
     public $action    = '';
     public $classname = '';
     public $token     = '';
+    public $service   = null;
 
     /**
      * 初始化
@@ -18,6 +19,8 @@ class Api{
         $this->classname = getRoute()::$classname;
         $this->data_type = $data_type != 'json'?'jsonp':$data_type;
         $this->token     = session('token');
+
+        $this->service == null && $this->service = new Service\ServiceBasic($this->data_type,get_called_class());
     }
 
     /**
@@ -25,7 +28,7 @@ class Api{
      * @param array $noNeedTesting
      * @param string $data_type
      */
-    public function intercept(array $noNeedTesting = [],array $noNeedLogin = [],$data_type = 'json'){
+    public function intercept(array $noNeedTesting = [],array $noNeed = [],$data_type = 'json'){
         $this->init($data_type);
 
         //拦截检测
@@ -35,14 +38,8 @@ class Api{
             if(empty($this->token)) $this->no('token异常,请检查登录');
             if($this->token != $token) $this->no('Signature failed');
 
-            //login validata
-            if(!in_array($this->action,$noNeedLogin) && method_exists($this,'interceptLogin')){
-                $is_login = $this->interceptLogin();
-                if(!$is_login) $this->no('Not logged in');
-
-                //updata
-                if(method_exists($this,'autoUpdate')) $this->autoUpdate();
-            }
+            //auto action validata
+            if(!in_array($this->action,$noNeed) && method_exists($this,'auto')) $this->auto();
         }
     }
 
@@ -77,33 +74,33 @@ class Api{
         return $res;
     }
 
-    /**
-     * 执行服务方法
-     * @param $obj
-     * @param $action
-     * @return mixed
-     */
-    public function serviceAction($obj,$action,array $params = []){
-        if('object' != gettype($obj)) $this->no('service操作:参数类型错误');
-        if(!is_string($action.'')) $this->no('service操作:参数类型错误');
-        if(!method_exists($obj,$action)) $this->no('service操作:方法不存在');
-
-        $res = $obj->$action(...$params);
-        $this->isRestful($res);
-        if(empty($res['code'])) $this->no($res['msg']);
-        $this->yes($res['msg'],$res['data']);
-    }
-
-    /**
-     * resful风格检测
-     * @param array $res
-     */
-    public function isRestful($res){
-        if(!is_array($res)) $this->no('resful风格错误');
-        if(!isset($res['code']) || !is_bool($res['code'])) $this->no('resful风格错误参数:code');
-        if(!isset($res['msg']) || !is_string($res['msg'])) $this->no('resful风格错误参数:msg');
-        if(!isset($res['data']) || !is_array($res['data'])) $this->no('resful风格错误参数:data');
-    }
+//    /**
+//     * 执行服务方法
+//     * @param $obj
+//     * @param $action
+//     * @return mixed
+//     */
+//    public function serviceAction($obj,$action,array $params = []){
+//        if('object' != gettype($obj)) $this->no('service操作:参数类型错误');
+//        if(!is_string($action.'')) $this->no('service操作:参数类型错误');
+//        if(!method_exists($obj,$action)) $this->no('service操作:方法不存在');
+//
+//        $res = $obj->$action(...$params);
+//        $this->isRestful($res);
+//        if(empty($res['code'])) $this->no($res['msg']);
+//        $this->yes($res['msg'],$res['data']);
+//    }
+//
+//    /**
+//     * resful风格检测
+//     * @param array $res
+//     */
+//    public function isRestful($res){
+//        if(!is_array($res)) $this->no('resful风格错误');
+//        if(!isset($res['code']) || !is_bool($res['code'])) $this->no('resful风格错误参数:code');
+//        if(!isset($res['msg']) || !is_string($res['msg'])) $this->no('resful风格错误参数:msg');
+//        if(!isset($res['data'])) $this->no('resful风格错误参数:data');
+//    }
 
     /**
      * 生成请求令牌

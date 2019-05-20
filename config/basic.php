@@ -5,4 +5,5 @@ return [
         'describe' => '一起做有意义的事',
         'authors'  => ['bdHeart']
     ],
+    'debug' => false
 ];

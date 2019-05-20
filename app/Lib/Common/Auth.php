@@ -8,8 +8,10 @@ class Auth extends Api{
      * 登录拦截
      * @return mixed
      */
-    protected function interceptLogin(){
+    protected function auto(){
         $res = $this->isLogin();
+        if($res) if(method_exists($this,'autoUpdate')) $this->autoUpdate();//updata
+        if(!$res['code']) $this->no('Not logged in');
         return $res['code'];
     }
 

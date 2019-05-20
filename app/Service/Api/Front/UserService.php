@@ -21,33 +21,19 @@ class UserService{
         //init
         $res = getInit('登录失败');
 
-        //validata
-        if(empty($account) || !is_string($account.'')){
-            $res['msg'] = '请传入有效账户';
-            return $res;
-        }
-        if(empty($password) || !is_string($password.'')){
-            $res['msg'] = '请传入有效密码';
-            return $res;
-        }
-
         //query
-        try{
-            $condition = [
-                ['account',$account],
-                ['password',md5($password)],
-                ['status',1]
-            ];
-            $user = $this->model->select('id,account,username,addtime,code')->where($condition)->limit(1)->get()->toArray();
-            if(!empty($user)){
-                $token = token();
-                $user  = $user[0];
-                $user['token'] = $token;
-                session('user',$user);
-                $res = getSuccsess('登录成功',$user);
-            }
-        }catch (\Exception $e){
-            return $res;
+        $condition = [
+            ['account',$account],
+            ['password',md5($password)],
+            ['status',1]
+        ];
+        $user = $this->model->select('id,account,username,addtime,code')->where($condition)->limit(1)->get()->toArray();
+        if(!empty($user)){
+            $token = token();
+            $user  = $user[0];
+            $user['token'] = $token;
+            session('user',$user);
+            $res = getSuccsess('登录成功',$user);
         }
 
         return $res;
@@ -67,19 +53,15 @@ class UserService{
             return $res;
         }else{
             //update
-            try{
-                $pre = session('user');
-                $token     = $pre['token'];
-                $condition = [['id',$pre['id']]];
-                $up_res    = $this->model->select('id,account,username,addtime,code')->where($condition)->limit(1)->get()->toArray();
-                if(!empty($up_res)){
-                    $user = $up_res[0];
-                    $user['token'] = $token;
-                    session('user',$user);
-                    $res = getSuccsess('更新成功',$user);
-                }
-            }catch (\Exception $e){
-                return $res;
+            $pre = session('user');
+            $token     = $pre['token'];
+            $condition = [['id',$pre['id']]];
+            $up_res    = $this->model->select('id,account,username,addtime,code')->where($condition)->limit(1)->get()->toArray();
+            if(!empty($up_res)){
+                $user = $up_res[0];
+                $user['token'] = $token;
+                session('user',$user);
+                $res = getSuccsess('更新成功',$user);
             }
         }
 
@@ -98,48 +80,27 @@ class UserService{
         $res = getInit('注册失败');
         $code = new Code();
 
-        //validata
-        if(empty($account) || !is_string($account.'')){
-            $res['msg'] = '请传入有效账户';
+        //validate
+        $is_code = $code->where([['status',1],['code',$codeNum],['number >',0]])->limit(1)->get()->toArray();
+        $is_old  = $this->model->where([['account',$account]])->limit(1)->get()->toArray();
+        if(empty($is_code)){
+            $res['msg'] = '激活码不存在';
             return $res;
         }
-        if(empty($password) || !is_string($password.'')){
-            $res['msg'] = '请传入有效密码';
-            return $res;
-        }
-        if(empty($codeNum) || !is_string($codeNum.'')){
-            $res['msg'] = '请传入有效激活码';
+        if(!empty($is_old)){
+            $res['msg'] = '账号名已被占用';
             return $res;
         }
 
         //register
-        startTrans();
-        try{
-            //validate
-            $is_code = $code->where([['status',1],['code',$codeNum],['number >',0]])->limit(1)->get()->toArray();
-            $is_old  = $this->model->where([['account',$account]])->limit(1)->get()->toArray();
-            if(empty($is_code)){
-                $res['msg'] = '激活码不存在';
-                return $res;
-            }
-            if(!empty($is_old)){
-                $res['msg'] = '账号名已被占用';
-                return $res;
-            }
-
-            $insert  = [
-                'account'  => $account,
-                'password' => md5($password),
-                'addtime'  => time(),
-                'code'     => $codeNum
-            ];
-            $add_res = $this->model->insert($insert);
-            $add_res && $res = getSuccsess('更新成功',$add_res);
-            commit();
-        }catch (\Exception $e){
-            rollback();
-            return $res;
-        }
+        $insert  = [
+            'account'  => $account,
+            'password' => md5($password),
+            'addtime'  => time(),
+            'code'     => $codeNum
+        ];
+        $add_res = $this->model->insert($insert);
+        $add_res && $res = getSuccsess('更新成功',$add_res);
 
         return $res;
     }

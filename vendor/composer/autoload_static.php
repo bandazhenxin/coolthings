@@ -88,8 +88,10 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
     public static $classMap = array (
         'heart\\Api' => __DIR__ . '/../..' . '/core/heart/Api.php',
         'heart\\Model' => __DIR__ . '/../..' . '/core/heart/Model.php',
+        'heart\\Route' => __DIR__ . '/../..' . '/core/heart/Route.php',
+        'heart\\Service\\ServiceBasic' => __DIR__ . '/../..' . '/core/heart/Service/ServiceBasic.php',
+        'heart\\Service\\ServiceInstance' => __DIR__ . '/../..' . '/core/heart/Service/ServiceInstance.php',
         'heart\\Session' => __DIR__ . '/../..' . '/core/heart/Session.php',
-        'heart\\route' => __DIR__ . '/../..' . '/core/heart/route.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
