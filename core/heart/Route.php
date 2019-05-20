@@ -18,7 +18,7 @@ class Route{
     final private function __construct(){
         $this->suffis = getUrlSuffis();
         $this->config = config('route');
-        $this->type   = ['get','post','delete','head','patch'];
+        $this->type   = ['get','post','delete','head','patch','put'];
         $this->router == null && $this->router = new Router;
         $this->init();
     }

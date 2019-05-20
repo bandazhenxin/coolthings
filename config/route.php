@@ -93,8 +93,8 @@ return [
 
     //测试接口
     [
-        'type'   => 'get',
-        'url'    => '/test',
+        'type'   => 'put',
+        'url'    => '/put/test',
         'action' => 'api/test/index'
     ]
 ];
