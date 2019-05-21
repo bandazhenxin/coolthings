@@ -2,6 +2,7 @@
 namespace App\Controller\Api\Front;
 
 use App\Lib\Common\Auth;
+use Inhere\Validate\Validation;
 
 /**
  * Class Index
@@ -20,53 +21,33 @@ class User extends Auth{
      */
     public function login(){
         //getdata
-         $account  = $this->request('account');
-        $password = $this->request('password');
+        $data['account']  = $this->request('account');
+        $data['password'] = $this->request('password');
 
         //validate
-        if(empty($account)) $this->no('请填写账户信息');
-        if(empty($password)) $this->no('请填写密码信息');
+        $rule = [['account,password','required']];
+        $v    = Validation::check($data,$rule);
+        if($v->fail()) $this->no($v->firstError());
 
         //login
-        $this->yes('获取成功',$this->server->login($account,$password)->data);
+        $this->yes('获取成功',$this->server->login(...toIndexArr($data))->data);
     }
 
     /**
-     * 用户注册  这里设置的是不判断是否登录都可以注册
+     * 用户注册  这里设计的是不判断是否登录都可以注册
      */
     public function register(){
         //getdata
-        $account  = $this->request('account');
-        $password = $this->request('password');
-        $code     = $this->request('code');
+        $data['account']  = $this->request('account');
+        $data['password'] = $this->request('password');
+        $data['code']     = $this->request('code');
 
         //validate
-        if(empty($account)) $this->no('请填写账户信息');
-        if(empty($password)) $this->no('请填写密码信息');
-        if(empty($code)) $this->no('请填写激活码');
+        $rule = [['account,password,code','required']];
+        $v    = Validation::check($data,$rule);
+        if($v->fail()) $this->no($v->firstError());
 
         //register
-        $this->yes('获取成功',$this->server->register($account,$password,$code)->data);
-    }
-
-    /**
-     * 自助登录
-     * @param $account
-     * @param $password
-     * @return string
-     */
-    public function privateLogin($account,$password){
-        //init
-        $res = getInit('登录失败');
-
-        //validate
-        if(empty($account) || !is_string($account.'')) return $res;
-        if(empty($password) || !is_string($password.'')) return $res;
-
-        //login
-        $user_res = $this->server->login($account,$password);
-        if(empty($user_res['code'])) return $res;
-        $res = getSuccsess('登录成功',$user_res['data']);
-        return $res;
+        $this->yes('获取成功',$this->server->register(...toIndexArr($data))->data);
     }
 }

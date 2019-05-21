@@ -293,3 +293,19 @@ if(! function_exists('token')){
         return $token;
     }
 }
+
+if(! function_exists('toIndexArr')){
+    /**
+     * 关联数组转索引数组
+     * @param $arr
+     * @return mixed
+     */
+    function toIndexArr($arr){
+        $i=0;
+        foreach($arr as $key => $value){
+            $newArr[$i] = $value;
+            $i++;
+        }
+        return $newArr;
+    }
+}

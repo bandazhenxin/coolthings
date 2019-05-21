@@ -2,6 +2,7 @@
 namespace App\Controller\Api\Front;
 
 use App\Lib\Common\Auth;
+use Inhere\Validate\Validation;
 
 /**
  * Class Index
@@ -28,16 +29,19 @@ class Index extends Auth{
      */
     public function thingsList(){
         //getdata
-        $page   = $this->request('page');
-        $length = $this->request('length',10);
+        $data['page']   = $this->request('page');
+        $data['length'] = $this->request('length',10);
 
         //validata
-        if(empty($page)) $this->no('分页数不能为空');
-        if(!is_numeric($page)) $this->no('分页数应为数字');
-        if(!is_numeric($length)) $this->no('分页长度应为数字');
+        $rule = [
+            ['page,length','required'],
+            ['page,length','number']
+        ];
+        $v    = Validation::check($data,$rule);
+        if($v->fail()) $this->no($v->firstError());
 
         //query
-        $this->yes('获取成功',$this->server->thingsList($page,$length)->data);
+        $this->yes('获取成功',$this->server->thingsList(...toIndexArr($data))->data);
     }
 
     /**
