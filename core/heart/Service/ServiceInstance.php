@@ -42,7 +42,8 @@ class ServiceInstance{
                 return $this;
             }
             rollback();
-            $this->res['msg'] = (isset($res['code']) && $res['msg'])?$res['msg']:'操作失败';
+            $this->res['code'] = false;
+            $this->res['msg']  = (isset($res['code']) && $res['msg'])?$res['msg']:'操作失败';
             $this->inputInfo($this->res);
         }catch (\Exception $e){
             rollback();

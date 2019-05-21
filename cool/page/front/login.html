@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="../../tool/loginUi/style.css">
+    <!-- Iconos -->
+
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../../tool/loginUi/vector.js"></script>
+</head>
+<body>
+<div id="container">
+    <div id="output">
+        <div class="containerT">
+            <h1>用户登录</h1>
+            <form class="form" id="entry_form">
+                <input type="text" placeholder="account" id="entry_name">
+                <input type="password" placeholder="password" id="entry_password">
+                <button type="button" id="entry_btn">登录</button>
+                <div id="prompt" class="prompt"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../tool/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //init
+        var account  = '',
+            password = '',
+            is_ajax  = true,
+            index;
+
+        //init ui
+        Victor("container", "output");   //登陆背景函数
+        $("#entry_name").focus();
+        $(document).keydown(function(event){
+            if(event.keyCode==13){
+                $("#entry_btn").click();
+            }
+        });
+
+        //input
+        $('input').keyup(function(){
+            var id_name = $(this).attr('id'),
+                 value = $(this).val();
+            switch (id_name){
+                case 'entry_name':
+                    account = value;
+                    break;
+                case 'entry_password':
+                    password = value;
+                    break;
+            }
+        });
+
+        //login
+        $("#entry_btn").click(function(){
+            //validata
+            var res = validata();
+            if(!res.code){
+                layer.msg(res.msg);
+                return false;
+            }
+            if(!is_ajax) return false;
+
+            //ajax
+            var url = '/put/login',
+                data = {
+                    'account':account,
+                    'password':password
+                };
+            $.ajax({
+                url:url,
+                data:data,
+                dataType:'json',
+                type:'post',
+                beforeSend:function(){
+                    is_ajax = false;
+                    layer.load();
+                },
+                success:function(result){
+                    layer.closeAll('loading');
+                    // result  = JSON.stringify(result);
+                    is_ajax = true;
+                    if(result.code){
+
+                    }else{
+                        layer.msg(result.msg);
+                    }
+                },
+                error:function(){
+                    is_ajax = true;
+                    layer.closeAll('loading');
+                    layer.msg('网络错误');
+                }
+            });
+        });
+        function validata(){
+            var res = {
+                code:true,
+                msg:'验证成功'
+            };
+
+            //account
+            if(!account){
+                res.code = false;
+                res.msg  = '请填写账户信息';
+                $('#entry_name').focus();
+                return res;
+            }
+
+            //password
+            if(!password){
+                res.code = false;
+                res.msg  = '请填写密码';
+                $('#entry_password').focus();
+                return res;
+            }
+
+            return res;
+        }
+    });
+</script>
+</body>
+</html>
