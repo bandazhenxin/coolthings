@@ -34,6 +34,13 @@ class User extends Auth{
     }
 
     /**
+     * 是否登录
+     */
+    public function loginJudge(){
+        $this->inputInfo($this->isLogin());
+    }
+
+    /**
      * 用户注册  这里设计的是不判断是否登录都可以注册
      */
     public function register(){

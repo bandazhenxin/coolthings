@@ -156,7 +156,7 @@ class Api{
         $this->inputInfo($result);
     }
 
-    private function inputInfo($result = []){
+    public function inputInfo($result = []){
         $data = json($result);
         switch ($this->data_type){
             case 'json':

@@ -8,18 +8,18 @@
     <link rel="stylesheet" type="text/css" href="../../tool/loginUi/style.css">
     <!-- Iconos -->
 
-    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="../../tool/jquery/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../../tool/loginUi/vector.js"></script>
 </head>
 <body>
 <div id="container">
     <div id="output">
         <div class="containerT">
-            <h1>用户登录</h1>
+            <h1>放我进去！！</h1>
             <form class="form" id="entry_form">
-                <input type="text" placeholder="account" id="entry_name">
-                <input type="password" placeholder="password" id="entry_password">
-                <button type="button" id="entry_btn">登录</button>
+                <input type="text" placeholder="cool name" id="entry_name">
+                <input type="password" placeholder="cool password" id="entry_password">
+                <button type="button" id="entry_btn">开门</button>
                 <div id="prompt" class="prompt"></div>
             </form>
         </div>
@@ -31,8 +31,32 @@
         //init
         var account  = '',
             password = '',
-            is_ajax  = true,
+            is_ajax  = false,
             index;
+
+        //isLogin
+        $.ajaxSettings.async = false;
+        var url = '/get/isLogin';
+        $.ajax({
+            url:url,
+            data:{},
+            dataType:'json',
+            type:'get',
+            success:function(result){
+                is_ajax = true;
+                if(result.code){
+                    var request    = getRequest();
+                    var return_url = request.getVariable('returnUrl');
+                    return_url = return_url?return_url:'/cool/page/front/index.html';
+                    location.href = return_url;
+                }
+            },
+            error:function(){
+                is_ajax = true;
+                layer.msg('网络错误');
+            }
+        });
+        $.ajaxSettings.async = true;
 
         //init ui
         Victor("container", "output");   //登陆背景函数
@@ -84,10 +108,12 @@
                 },
                 success:function(result){
                     layer.closeAll('loading');
-                    // result  = JSON.stringify(result);
                     is_ajax = true;
                     if(result.code){
-
+                        var request    = getRequest();
+                        var return_url = request.getVariable('returnUrl');
+                        return_url = return_url?return_url:'/cool/page/front/index.html';
+                        location.href = return_url;
                     }else{
                         layer.msg(result.msg);
                     }
@@ -99,6 +125,8 @@
                 }
             });
         });
+
+        //tool
         function validata(){
             var res = {
                 code:true,
@@ -119,6 +147,24 @@
                 res.msg  = '请填写密码';
                 $('#entry_password').focus();
                 return res;
+            }
+
+            return res;
+        }
+
+        function getRequest(){
+            var res = {};
+
+            res.domain = 'http' + (document.domain || window.location.host);
+            res.url    = window.location.href || document.URL || document.location;
+            res.getVariable = function(variable){
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return pair[1];}
+                }
+                return(false);
             }
 
             return res;

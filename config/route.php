@@ -31,6 +31,12 @@ return [
         'url'    => '/post/register',
         'action' => 'api/front/user/register'
     ],
+    //判断是否登录 complete
+    [
+        'type'   => 'get',
+        'url'    => '/get/isLogin',
+        'action' => 'api/front/user/loginJudge'
+    ],
 
     //获取酷事列表 complete
     [
@@ -38,6 +44,7 @@ return [
         'url'    => '/get/thingsList',
         'action' => 'api/front/index/thingsList'
     ],
+    //获取酷事标签
     //获取酷事详情
     [
         'type'   => 'post',
