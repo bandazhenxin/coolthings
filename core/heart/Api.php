@@ -36,7 +36,7 @@ class Api{
             //token validata
             $token = $this->getRequestToken();
             if(empty($this->token)) $this->no('token异常,请检查登录');
-            if($this->token != $token) $this->no('Signature failed');
+            if($this->token != $token) $this->no('用户未登录');
 
             //auto action validata
             if(!in_array($this->action,$noNeed) && method_exists($this,'auto')) $this->auto();
