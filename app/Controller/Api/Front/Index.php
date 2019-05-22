@@ -10,7 +10,7 @@ use Inhere\Validate\Validation;
  */
 class Index extends Auth{
     //无需验证的接口
-    private $noNeedTesting = ['thingsList'];
+    private $noNeedTesting = ['thingsList','tagList'];
     private $noNeedLogin   = [];//一般填上面的数组就行
     private $server        = null;
 
@@ -25,7 +25,7 @@ class Index extends Auth{
     }
 
     /**
-     * 获取首页
+     * 获取酷事列表
      */
     public function thingsList(){
         //getdata
@@ -42,6 +42,14 @@ class Index extends Auth{
 
         //query
         $this->yes('获取成功',$this->server->thingsList(...toIndexArr($data))->data);
+    }
+
+    /**
+     * 获取标签列表
+     */
+    public function tagList(){
+        //query
+        $this->yes('获取成功',$this->server->tagList()->data);
     }
 
     /**

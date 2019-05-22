@@ -2,6 +2,7 @@
 namespace App\Service\Api\Front;
 
 use App\Model\Things;
+use App\Model\Tag;
 
 class TingsService{
     private $model = null;
@@ -24,6 +25,21 @@ class TingsService{
         $start = ($page - 1) * $length;
         $list  = $this->model->where([['status',1]])->limit($length,$start)->get()->toArray();
         $res = getSuccsess('获取成功',$list);
+        return $res;
+    }
+
+    /**
+     * 获取酷事标签
+     * @return array
+     */
+    public function tagList(){
+        //init
+        $res = getInit('获取失败');
+
+        //query
+        $tag  = new Tag();
+        $list = $tag->select('id,name')->where([['status',1],['key','things']])->orderBy('sort','DESC')->get()->toArray();
+        $res  = getSuccsess('获取成功',$list);
         return $res;
     }
 

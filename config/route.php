@@ -40,11 +40,16 @@ return [
 
     //获取酷事列表 complete
     [
-        'type'   => 'post',
+        'type'   => 'get',
         'url'    => '/get/thingsList',
         'action' => 'api/front/index/thingsList'
     ],
     //获取酷事标签
+    [
+        'type'   => 'get',
+        'url'    => '/get/tagList',
+        'action' => 'api/front/index/tagList'
+    ],
     //获取酷事详情
     [
         'type'   => 'post',
