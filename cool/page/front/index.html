@@ -30,6 +30,13 @@
   <script type="text/javascript" src="/cool/tool/indexNavUi/js/widget/navigator.js"></script>
   <script type="text/javascript" src="/cool/tool/indexNavUi/js/widget/navigator.iscroll.js"></script>
   <!--navUi js-->
+
+  <!--private-->
+  <style>
+    #sortable .card__title{
+      color: #000000;
+    }
+  </style>
 </head>
 <body>
   <div class="sortable">
@@ -173,7 +180,7 @@
           $.ajaxSettings.async = true;
 
           //basic ui
-          document.querySelector('#sortable').sortablejs()
+          document.querySelector('#sortable').sortablejs();
 
           //nav ui
           $('#nav-smartSetup').navigator();

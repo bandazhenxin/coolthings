@@ -11,19 +11,26 @@ class TingsService{
         $this->model == null && $this->model = new Things();
     }
 
+    public function indexThings(){
+        $allData = $this->model->where([['status',1]])->get()->toArray();
+
+    }
+
     /**
      * 酷事列表
      * @param $page
      * @param int $length
      * @return array
      */
-    public function thingsList($page,$length = 10){
+    public function thingsList($page,$length = 10,$tag_id = 0){
         //init
         $res = getInit('获取失败');
 
         //query
-        $start = ($page - 1) * $length;
-        $list  = $this->model->where([['status',1]])->limit($length,$start)->get()->toArray();
+        $start     = ($page - 1) * $length;
+        $condition = [['status',1]];
+        $tag_id && $condition[] = ['tag_id',$tag_id];
+        $list      = $this->model->where($condition)->limit($length,$start)->get()->toArray();
         $res = getSuccsess('获取成功',$list);
         return $res;
     }

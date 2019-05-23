@@ -25,17 +25,27 @@ class Index extends Auth{
     }
 
     /**
+     * 首页获取酷事列表
+     */
+    public function indexThings(){
+        //query
+        $this->yes('获取成功',$this->server->indexThings()->data);
+    }
+
+    /**
      * 获取酷事列表
      */
     public function thingsList(){
         //getdata
         $data['page']   = $this->request('page');
         $data['length'] = $this->request('length',10);
+        $data['tag_id'] = $this->request('tag_id');
 
         //validata
+        $name_space = $data['tag_id']?'page,length,tag_id':'page,length';
         $rule = [
-            ['page,length','required'],
-            ['page,length','number']
+            [$name_space,'required'],
+            [$name_space,'number']
         ];
         $v    = Validation::check($data,$rule);
         if($v->fail()) $this->no($v->firstError());
