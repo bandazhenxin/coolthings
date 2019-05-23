@@ -15,7 +15,7 @@
     如果你觉得挺好玩,可以加入我们一起开发，开发也是一件很酷的事嘛。
   
 
-![一起做有意义的事](http://chuantu.xyz/t6/702/1558502067x1709417261.jpg)
+![一起做有意义的事](http://www.17wanzhuan.com/public/admin/images/meow.jpg)
 
 
 
