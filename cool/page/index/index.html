@@ -18,19 +18,6 @@
   <link rel="stylesheet" type="text/css" href="/cool/tool/indexNavUi/css/widget/navigator/navigator.iscroll.default.css" /><!--皮肤文件，若不使用该皮肤，可以不加载-->
   <!--navUi css-->
 
-  <script type="text/javascript" src="/cool/tool/indexNavUi/js/zepto.js"></script>
-  <!--basicUi js-->
-  <script src="/cool/tool/bottom/js/modernizr-2.6.2.min.js"></script>
-  <script type="text/javascript" src="/cool/tool/masonry/dist/sortable.min.js"></script>
-  <!--basicUi js-->
-  <!--navUi js-->
-  <script type="text/javascript" src="/cool/tool/indexNavUi/js/zepto.extend.js"></script>
-  <script type="text/javascript" src="/cool/tool/indexNavUi/js/zepto.ui.js"></script>
-  <script type="text/javascript" src="/cool/tool/indexNavUi/js/zepto.iscroll.js"></script>
-  <script type="text/javascript" src="/cool/tool/indexNavUi/js/widget/navigator.js"></script>
-  <script type="text/javascript" src="/cool/tool/indexNavUi/js/widget/navigator.iscroll.js"></script>
-  <!--navUi js-->
-
   <!--private-->
   <style>
     #sortable .card__title{
@@ -140,8 +127,10 @@
     </div>
     <div id="cn-overlay" class="cn-overlay"></div>
   </div>
-  <script src="/cool/tool/bottom/js/polyfills.js"></script>
-  <script src="/cool/tool/bottom/js/lrtk.js"></script>
+  <script>
+    console.time('test');
+  </script>
+  <script type="text/javascript" src="index.js"></script>
   <script type="text/javascript">
       $(function(){
           //渲染nav
@@ -166,12 +155,12 @@
                       $('#nav-display').append(html);
                   }else{
                       is_ajax = false;
-                      layer.msg(result.msg);
+                      alert(result.msg);
                   }
               },
               error:function(){
                   is_ajax = true;
-                  layer.msg('网络错误');
+                  alert('网络错误');
               }
           });
 
@@ -184,6 +173,8 @@
 
           //nav ui
           $('#nav-smartSetup').navigator();
+
+          console.timeEnd('test');
       });
   </script>
 </body>

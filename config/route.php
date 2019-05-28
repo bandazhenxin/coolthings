@@ -7,7 +7,7 @@ return [
     [
         'type'   => 'static',
         'url'    => '/',
-        'action' => '/cool/page/front/index.html'
+        'action' => '/cool/page/index/index.html'
     ],
     //后台首页
     [
@@ -66,7 +66,7 @@ return [
     [
         'type'   => 'post',
         'url'    => '/get/commentList',
-        'action' => 'api/front/index/commentList'
+        'action' => 'api/index/index/commentList'
     ],
     //发表评论
     [
