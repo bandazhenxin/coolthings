@@ -103,6 +103,15 @@ return [
     //获取实例评论
     //增加实例评论
 
+    /**
+     * 小程序接口
+     */
+    [
+        'type'   => 'get',
+        'url'    => '/get/miniInit',
+        'action' => 'api/mini/user/miniInit'
+    ],
+
     //测试接口
     [
         'type'   => 'put',
