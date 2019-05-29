@@ -230,6 +230,17 @@ if(!function_exists('json')){
     }
 }
 
+if(!function_exists('jsonDe')){
+    /**
+     * json解码
+     * @param $pre
+     * @return string
+     */
+    function jsonDe($pre){
+        return json_decode( $pre,true);
+    }
+}
+
 if(!function_exists('getInit')){
     function getInit($error,$data = []){
         $error = is_string($error)?$error:'操作失败';

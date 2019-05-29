@@ -11,11 +11,19 @@ class User extends Auth{
 
     public function __construct(){
         $this->intercept($this->noNeedTesting,$this->noNeedLogin);
-//        $this->server == null && $this->server = $this->service['UserService'];
+        $this->server == null && $this->server = $this->service['UserService'];
     }
 
     //小程序初始化
     public function miniInit(){
+        //getdata
+        $data['code']  = $this->request('code');
 
+        //validate
+        $rule = [['code','required']];
+        $v    = Validation::check($data,$rule);
+        if($v->fail()) $this->no($v->firstError());
+
+        $this->yes('获取成功',$this->server->getCode2Session(...toIndexArr($data))->data);
     }
 }

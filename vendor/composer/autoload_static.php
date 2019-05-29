@@ -39,6 +39,7 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         'C' => 
         array (
             'CutePHP\\Route\\' => 14,
+            'Curl\\' => 5,
         ),
         'A' => 
         array (
@@ -78,6 +79,10 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         'CutePHP\\Route\\' => 
         array (
             0 => __DIR__ . '/..' . '/cutephp/route/src',
+        ),
+        'Curl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl',
         ),
         'App\\' => 
         array (
