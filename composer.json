@@ -7,7 +7,8 @@
         "symfony/polyfill-iconv": "^1.11",
         "symfony/polyfill-mbstring": "^1.11",
         "inhere/php-validate": "^2.6",
-        "php-curl-class/php-curl-class": "^8.6"
+        "php-curl-class/php-curl-class": "^8.6",
+        "datto/json-rpc": "~5.0"
     },
     "autoload": {
         "classmap":["core/heart"],

@@ -13,6 +13,7 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Inhere\\Validate\\' => array($vendorDir . '/inhere/php-validate/src'),
+    'Datto\\JsonRpc\\' => array($vendorDir . '/datto/json-rpc/src'),
     'CutePHP\\Route\\' => array($vendorDir . '/cutephp/route/src'),
     'Curl\\' => array($vendorDir . '/php-curl-class/php-curl-class/src/Curl'),
     'App\\' => array($baseDir . '/app'),

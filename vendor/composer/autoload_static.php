@@ -36,6 +36,10 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         array (
             'Inhere\\Validate\\' => 16,
         ),
+        'D' => 
+        array (
+            'Datto\\JsonRpc\\' => 14,
+        ),
         'C' => 
         array (
             'CutePHP\\Route\\' => 14,
@@ -75,6 +79,10 @@ class ComposerStaticInit29e5f69e8e61bbc5c166bf125a5edfcf
         'Inhere\\Validate\\' => 
         array (
             0 => __DIR__ . '/..' . '/inhere/php-validate/src',
+        ),
+        'Datto\\JsonRpc\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/datto/json-rpc/src',
         ),
         'CutePHP\\Route\\' => 
         array (
